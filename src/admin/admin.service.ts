@@ -1,11 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PatchAdminDto } from './dto/admin.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class AdminService {
     constructor(
-        private readonly prismaService: PrismaService
+        private readonly prismaService: PrismaService,
+        private readonly authService: AuthService
     ) {}
 
     async getAdmin(adminId: number) {
@@ -27,7 +29,7 @@ export class AdminService {
             throw new BadRequestException("Админ не найден")
         }
 
-        return this.prismaService.admin.update({
+        const updatedUser = await this.prismaService.admin.update({
             where: {
                 id: dto.id
             },
@@ -37,6 +39,8 @@ export class AdminService {
                 last_name: dto.last_name
             }
         });
+
+        return await this.authService.refreshToken(updatedUser.id)
     }
 
     async deleteAdmin(adminId: number) {

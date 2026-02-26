@@ -9,5 +9,6 @@ import { RefreshJwtStrategy } from './strategies/refresh.strategy';
     AuthService,
     RefreshJwtStrategy
   ],
+  exports: [AuthService]
 })
 export class AuthModule {}

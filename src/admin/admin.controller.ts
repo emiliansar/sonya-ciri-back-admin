@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Request, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AuthGuard } from 'src/auth/guards/jwt.guard';
 import { PatchAdminDto } from './dto/admin.dto';
@@ -26,7 +26,7 @@ export class AdminController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch('delete')
+  @Delete('delete')
   async deleteProfile(@Request() req) {
     return this.adminService.deleteAdmin(req.admin.sub);
   }

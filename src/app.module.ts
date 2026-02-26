@@ -9,6 +9,7 @@ import { AdminModule } from './admin/admin.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from './prisma/prisma.service';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { PrismaService } from './prisma/prisma.service';
     AuthModule,
     ChartModule,
     ChronotypeModule,
-    AdminModule
+    AdminModule,
+    SearchModule
   ],
   controllers: [AppController],
   providers: [

@@ -30,11 +30,13 @@ export class AuthService {
             throw new UnauthorizedException("Это уникальное имя уже занято");
         }
 
-        return await this.prisma.admin.create({
+        const admin = await this.prisma.admin.create({
             data: {
                 ...dto
             }
         });
+
+        return this.signin(admin)
     }
 
     async signin(dto: SigninAdminDto): Promise<{
